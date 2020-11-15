@@ -8,7 +8,7 @@
 
 **crop_sofue.py**: クロッピング用スクリプト
 
-## kerasモデル
+## 浅いkerasモデル
 
 **shallow_model.py**: 浅いkerasの肌評価モデル
 
