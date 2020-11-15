@@ -15,3 +15,11 @@
 **image_sorting.py**: ぼやけている画像を除去するスクリプト（shallow_model.pyで使っている）
 
 **multi_label.csv**: 皮膚科先生の評価のみ入ったラベル（shallow_model.pyで使っている）
+
+## 皮膚癌API
+
+**ISIC_makecsv.py**: ISICデータベースから画像idと皮膚癌の種類を取得するスクリプト（APIが遅いため、使っていない）
+
+**ISIC_dl_image.py**: ISICデータベースから画像をダウンロードするスクリプト（APIが遅いため、使っていない）
+
+**api.py**: ISICからデータベースを呼び出すためのスクリプト
