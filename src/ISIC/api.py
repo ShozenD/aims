@@ -1,6 +1,5 @@
 import requests
 
-
 class ISICApi(object):
     def __init__(self, hostname='https://isic-archive.com',
                  username=None, password=None):

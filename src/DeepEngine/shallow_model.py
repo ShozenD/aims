@@ -16,9 +16,11 @@ datagen = image.ImageDataGenerator(
     fill_mode="reflect",
     horizontal_flip=True
     )
+
 #import csv
 train = pd.read_csv('multi_label.csv')
 train_image = []
+
 #reshape images
 for i in tqdm(range(train.shape[0])):
     img = image.load_img('images/'+str(train['file_id'][i])+'.jpg',target_size=(400,400,3))
@@ -30,6 +32,7 @@ for i in tqdm(range(train.shape[0])):
 X = np.array(train_image)
 y = np.array(train.drop(['file_id'],axis=1))
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.1)
+
 #augment
 it = datagen.flow(X_train, y_train)
 

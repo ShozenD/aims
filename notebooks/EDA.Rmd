@@ -1,0 +1,87 @@
+---
+title: "EDA"
+author: "Shozen Dan"
+date: "11/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE}
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+```
+
+```{r Read Data, message=FALSE}
+df <- read_csv("../multi_label.csv")
+
+df <- df %>%
+  rename(
+    texture = `1_texture`,
+    pores = `1_pores`,
+    spot = `1_spot`,
+    saggy = `1_saggy`,
+    clear = `1_clear`,
+    melanin = `1_melanin`,
+    wrinkles = `1_wrinkles`
+  )
+
+df2 <- df %>%
+  pivot_longer(
+    cols = c("texture", "pores", "spot", "saggy", "clear", "melanin", "wrinkles"),
+    names_to = "component",
+    values_to = "score"
+  )
+```
+
+## Score histogram
+```{r}
+df3 <- df2
+df3$score <- factor(df3$score)
+
+df3 <- df3 %>% 
+  group_by(component, score) %>%
+  summarise(count = n()) %>% 
+  mutate(pct = round(count/sum(count),2))
+
+ggplot(df3, aes(x = component, y=pct, fill=score)) + 
+  geom_bar(stat = "identity", position="dodge") + 
+  geom_text(aes(label=pct), position = position_dodge(.9), size = 3, vjust = -.5) + 
+  scale_fill_brewer(palette = "RdBu") + 
+  labs(
+    x = "Component",
+    y = "Freq",
+    fill = "Score"
+  ) +
+  theme_light()
+```
+
+## Factor Analysis
+```{r}
+df4 <- df %>% select(-file_id)
+
+res.pca <- PCA(df4, graph = FALSE)
+
+get_eig(res.pca)
+
+fviz_screeplot(res.pca, addlabels = TRUE, ylim = c(0, 70))
+```
+
+```{r}
+# Control variable colors using their contributions
+fviz_pca_var(res.pca, col.var="contrib",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE # Avoid text overlapping
+             )
+```
+
+```{r}
+avg_scores <- df2 %>%
+  group_by(component) %>%
+  summarise(avg = mean(score)) %>% 
+  pull(avg)
+```
+
