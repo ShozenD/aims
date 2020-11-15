@@ -139,3 +139,10 @@ cython_debug/
 
 # Don't upload data
 data/*
+
+# VScode
+aims.code-workspace
+.vscode
+
+# Others
+pipenv.txt
