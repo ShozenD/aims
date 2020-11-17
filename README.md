@@ -38,3 +38,8 @@ srcISIC/**api.py**: ISICからデータベースを呼び出すためのスク�
 * src/DeepEngine/**image_sorting.py**: ぼやけている画像を除去するスクリプト（shallow_model.pyで使っている）
 
 * **multi_label.csv**: 皮膚科先生の評価のみ入ったラベル（shallow_model.pyで使っている）
+
+### Densenet169 モデル
+**DenseNet/class_label1.csv/**: ISICデータのラベル
+
+**DenseNet/DenseNet169_v3.ipynb**: DenseNet169（imagenet）のモデル
