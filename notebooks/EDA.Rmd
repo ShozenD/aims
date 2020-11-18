@@ -83,5 +83,12 @@ avg_scores <- df2 %>%
   group_by(component) %>%
   summarise(avg = mean(score)) %>% 
   pull(avg)
+
+scores.mat <- as.matrix(df[-1])
+
+err.mat <- t(t(scores.mat) - avg_scores)
+mae <- mean(rowSums(abs(err.mat)))
+
+mae
 ```
 
