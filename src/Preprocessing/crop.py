@@ -7,8 +7,8 @@ import os
 # finds the area of skin, and crops it into square image
 # higher the dp_value, more sensitive the circle detection
 class circleCropper:
-    def __init__(self, size = 500, dp = [3, 6], bt = 0.5):
-        self.size = size# target image size
+    def __init__(self, size = 500, dp = [3, 6], bt = 1):
+        self.size = size # target image size
         self.dp = dp
         self.bt = bt
 
@@ -21,8 +21,11 @@ class circleCropper:
 
         return flat
 
+    def variance_of_laplacian(self, img):
+        return cv2.Laplacian(img, cv2.CV_64F).var()
+
+    """
     def blur_score(self, img):
-        """Calculates the 'blurness of an image using its average gradient'"""
         percentage = self.size/img.shape[1] # resize percentage
         w, h = int(img.shape[1] * percentage), int(img.shape[0] * percentage)
         resize = cv2.resize(img, (w, h))
@@ -34,9 +37,11 @@ class circleCropper:
         sharpness = np.average(dnorm)
 
         return sharpness
-
+    """
+    
     def detect(self, img, dp):
         """Detect circle and crops accordingly"""
+        X, Y = img.shape
         circles = cv2.HoughCircles(
             img, 
             cv2.HOUGH_GRADIENT,
@@ -45,15 +50,17 @@ class circleCropper:
             param2 = 50,
             minDist = 2000,
             minRadius = 300,
-            maxRadius = 600
+            maxRadius = int(X * np.pi)
         )
 
         if circles is not None:
             circles = np.round(circles[0, :]).astype("int")
             for (x, y, r) in circles:
-                cropped = img[int(y-(r/2)):int(y+(r/2)),int(x-(r/2)):int(x+(r/2))]
-                if self.blur_score(cropped) > self.bt: 
-                    return cropped
+                r_adj = r * np.sin(np.pi/8)
+                x1, x2, y1, y2 = int(x - r_adj), int(x + r_adj), int(y - r_adj), int(y + r_adj)
+                cropped = img[y1:y2, x1:x2]
+                if self.variance_of_laplacian(cropped) > self.bt: 
+                    return (x1, x2, y1, y2)
 
         return None # No circle detected or image is too blurred
 
@@ -99,15 +106,19 @@ class circleCropper:
                 # Remove noise
                 flat = self.denoise(img)
                 # Main process
-                cropped = self.detect(flat, self.dp[0])
-                if cropped is not None:
+                crop_coords = self.detect(flat, self.dp[0])
+                if crop_coords is not None:
+                    x1, x2, y1, y2 = crop_coords
+                    cropped = copy[y1:y2,x1:x2,:]
                     cv2.imwrite(os.path.join(output_dir, 'success', fname), cropped)
                 else:
-                    cropped = self.detect(flat, self.dp[1])
-                    if cropped is not None: 
+                    crop_coords = self.detect(flat, self.dp[1])
+                    if crop_coords is not None:
+                        x1, x2, y1, y2 = crop_coords
+                        cropped = copy[y1:y2,x1:x2,:]
                         cv2.imwrite(os.path.join(output_dir, 'success', fname), cropped)
                     else:
-                        cv2.imwrite(os.path.join(output_dir, 'failure', fname), copy)
+                        cv2.imwrite(os.path.join(output_dir, 'failure', fname), img)
 
             except:
                 fname = os.path.basename(f)
