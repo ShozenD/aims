@@ -19,7 +19,7 @@ python crop.py -i (input_dir_path) -o (output_dir_path)
 
 * src/ISIC/**ISIC_dl_image.py**: ISICデータベースから画像をダウンロードするスクリプト（APIが遅いため、使っていない）
 
-srcISIC/**api.py**: ISICからデータベースを呼び出すためのスクリプト
+* srcISIC/**api.py**: ISICからデータベースを呼び出すためのスクリプト
 
 ### 皮膚癌データセット
 * **class_label.csv**: 皮膚癌が７つのクラスに分類されたラベル(0~6)
