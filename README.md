@@ -1,6 +1,6 @@
 # aims
 
-## 1. クロッピング関連
+## 1. クロッピング関連＆前処理関連
 
 * src/Preprocessing/**crop.py**: クロッピング用スクリプト
 
@@ -11,6 +11,7 @@ python crop.py -i (input_dir_path) -o (output_dir_path)
 1. `input_dir_path`: マイクロスコープで撮影した画像が入ったディレクトリー
 2. `output_dir_path`: クロップした画像を書き出すためのディレクトリー
 
+* src/Preprocessing/**Image_Gamma_Correction.ipynb**: 画像の照度を統一するスクリプト
 ## 2. データ関連
 ### 皮膚癌API
 
