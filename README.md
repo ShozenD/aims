@@ -44,3 +44,7 @@ python crop.py -i (input_dir_path) -o (output_dir_path)
 * DenseNet/**class_label1.csv**: ISICデータのラベル
 
 * DenseNet/**DenseNet169_v3.ipynb**: DenseNet169（imagenet）のモデル
+
+* evaluate_skin.ipynb*: 肌評価スクリプト
+モデルはこのリンクからダウンロード
+https://drive.google.com/drive/folders/1fQ-TpaNnC_d2FKFCPOXx97xQpDEtopuB?usp=sharing
