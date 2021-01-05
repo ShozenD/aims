@@ -46,7 +46,9 @@ python crop.py -i (input_dir_path) -o (output_dir_path)
 * src/DenseNet/**DenseNet169_v3.ipynb**: DenseNet169（imagenet）のモデル
 
 * evaluate_skin.ipynb*: 肌評価スクリプト
+
 モデルはこのリンクからダウンロード
+
 https://drive.google.com/drive/folders/1fQ-TpaNnC_d2FKFCPOXx97xQpDEtopuB?usp=sharing
 
 ## 4. node js関連
