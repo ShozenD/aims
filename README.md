@@ -41,10 +41,18 @@ python crop.py -i (input_dir_path) -o (output_dir_path)
 * **multi_label.csv**: 皮膚科先生の評価のみ入ったラベル（shallow_model.pyで使っている）
 
 ### Densenet169 モデル
-* DenseNet/**class_label1.csv**: ISICデータのラベル
+* src/DenseNet/**class_label1.csv**: ISICデータのラベル
 
-* DenseNet/**DenseNet169_v3.ipynb**: DenseNet169（imagenet）のモデル
+* src/DenseNet/**DenseNet169_v3.ipynb**: DenseNet169（imagenet）のモデル
 
 * evaluate_skin.ipynb*: 肌評価スクリプト
 モデルはこのリンクからダウンロード
 https://drive.google.com/drive/folders/1fQ-TpaNnC_d2FKFCPOXx97xQpDEtopuB?usp=sharing
+
+## 4. node js関連
+変数は以下の通り
+scores = {"KIME":"","KEANA":"","SHIMI":"","TARUMI":"","TOUMEI":"","MERANIN":"","KOJIWA":""};
+* src/node/**score.js**: python肌評価の結果をスコアに保存するスクリプト（結果はconsoleに表示）
+* src/node/**ev_skin.py**: node jsで実行するpythonスクリプト
+* src/node/**2000.jpg**: テスト画像
+使用するモデルは上記のgoogledriveよりダウンロードしてください
