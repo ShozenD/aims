@@ -55,4 +55,5 @@ scores = {"KIME":"","KEANA":"","SHIMI":"","TARUMI":"","TOUMEI":"","MERANIN":"","
 * src/node/**score.js**: python肌評価の結果をスコアに保存するスクリプト（結果はconsoleに表示）
 * src/node/**ev_skin.py**: node jsで実行するpythonスクリプト
 * src/node/**2000.jpg**: テスト画像
+
 使用するモデルは上記のgoogledriveよりダウンロードしてください
